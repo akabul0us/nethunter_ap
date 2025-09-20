@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from flask import Flask, request,jsonify, json, make_response
 from subprocess import run, PIPE
 import time,os

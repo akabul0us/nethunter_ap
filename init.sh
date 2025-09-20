@@ -36,11 +36,12 @@ done
 if [ -z "$capfile" ]; then
    printf "${red}Path to packet capture file containing 4-way handshake: ${clear_color}"
    read capfile
+   printf "\n"
 fi
 if [ -z "$bssid" ]; then
     bssid="$(aircrack-ng $capfile 2>/dev/null | grep -oE -m1 "[0-9,A-F]{2}:[0-9,A-F]{2}:[0-9,A-F]{2}:[0-9,A-F]{2}:[0-9,A-F]{2}:[0-9,A-F]{2}")"
-    echo "No BSSID explicitly passed"
-    printf "Detected BSSID:${yellow} $bssid ${clear_color}from ${red}$capfile${clear_color}\n"
+    printf "${red}No BSSID explicitly passed${clear_color}\n"
+    printf "Detected BSSID:${yellow} $bssid ${clear_color}from ${yellow}$capfile${clear_color}\n"
 fi
 if [ -z "$name" ]; then
     basename="$(printf "$capfile" | rev | cut -c 5- | rev)"
@@ -49,15 +50,16 @@ if [ -z "$name" ]; then
     PWD="$(pwd)"
     python3 $PWD/ssid.py "$(cat $hc22000_file)" > $basename.txt 
     name="$(head -n 1 $basename.txt | cut -c 9-)"
-    echo "No Wifi name explicitly passed"
-    printf "Detected Wifi name:${green} $name ${clear_color}from ${red}$capfile${clear_color}\n"
+    printf "${red}No Wifi name explicitly passed${clear_color}\n"
+    printf "Detected Wifi name:${yellow} $name ${clear_color}from ${yellow}$capfile${clear_color}\n"
 fi
 if [ -z "$interface" ]; then
     printf "\n${yellow}Wireless interface to use for the access point: ${clear_color}"
     read interface
+    printf "\n"
 fi
 if [ -z "$deauth" ]; then
-    printf "\n${green}Wireless interface to use for deauthentication packets: ${clear_color}"
+    printf "\n${yellow}Wireless interface to use for deauthentication packets: ${clear_color}"
     read deauth
 fi
 ##this next part is just checking everything worked remove later

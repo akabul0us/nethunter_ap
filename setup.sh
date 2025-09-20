@@ -24,7 +24,8 @@ else
     apt_is_pm="$?"
     if [ "$apt_is_pm" -eq 0 ]; then
         printf "${yellow} Installing apache2...${clear_color}\n"
-        apt install -y apache2
+        apt-get update
+        apt-get install -y apache2
     else
         printf "${red}Automatic installation of apache2 failed - please install and run this script again${clear_color}\n"
         exit 1
@@ -34,14 +35,16 @@ printf "Checking that /var/www/html exists... "
 if [ -d /var/www/html ]; then 
     printf "${green}Yes${clear_color}\n"
     printf "${yellow}Moving current directory /var/www/html to $HOME/old-apache2${clear_color}\n"
+    mv /var/www/html $HOME/old-apache2
 else
     printf "${red}No${clear_color}\n"
 fi
-printf "Creating symbolic link for $PWD/html at /var/www/html\n"
+printf "Copying files from $PWD/html to /var/www/html\n"
 if [ ! -d /var/www ]; then
     mkdir -p /var/www
 fi
-ln -s $PWD/html /var/www/
+cp -R $PWD/html /var/www/
+chmod -R 755 /var/www/html
 printf "Checking for file /etc/apache2/sites-enabled/000-default.conf... "
 if [ -f /etc/apache2/sites-enabled/000-default.conf ]; then
    printf "${green}Yes${clear_color}\n"
@@ -69,7 +72,8 @@ else
     apt_is_pm="$?"
     if [ "$apt_is_pm" -eq 0 ]; then
         printf "${yellow} Installing aircrack-ng...${clear_color}\n"
-        27         apt install -y aircrack-ng
+        apt-get update
+        apt-get install -y aircrack-ng
     else
         printf "${red}Automatic installation of aircrack-ng failed${clear_color}\n"
         exit 1
