@@ -39,8 +39,8 @@ ip rule add from all iif lo oif wlan0 lookup $table pref 17000 2> /dev/null
 ip rule add from all iif lo oif wlan1 lookup 97 pref 17000 2> /dev/null
 ip rule add from all iif wlan1 lookup $table pref 21000 2> /dev/null
 echo "Starting captiveflask and hostapd.conf..."
-sleep 20 && cd /eviltwin & sudo hostapd /eviltwin/hostapd.conf &
+hostapd $(pwd)/hostapd.conf &
 sleep 5
-sudo dnsmasq -C dnsmasq.conf -d &
+dnsmasq -C $(pwd)/dnsmasq.conf -d &
 sleep 5
-sudo dnsspoof -i wlan1
+dnsspoof -i wlan1

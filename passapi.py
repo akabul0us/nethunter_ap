@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from flask import Flask, request,jsonify, json, make_response
 from subprocess import run, PIPE
+from datetime import datetime
 import time,os
 import sys
 
@@ -13,9 +14,10 @@ if not 'evil.cap' in os.listdir():
    print(f'[ERROR] evil.cap not found copy your target handshake in current folder {os.getcwd()} and name it evil.cap')
    exit(1)
 
+today = datetime.now()
 app = Flask('xd-evil')
 logpass = open('attempts.txt','a')
-print('Any Attempts will be saved HERE\n\n\n', file=logpass)
+print('Attempts', today, file=logpass)
 print('[INFO] Any Attempts will be saved in attempts.txt')
 
 def checkWPA(passw):

