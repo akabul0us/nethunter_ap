@@ -4,11 +4,29 @@ red='\033[0;31m'
 green='\033[0;32m'
 yellow='\033[0;33m'
 clear_color='\033[0m'
+confirm() {
+    printf "${green}Yes${clear_color}\n"
+}
+deny() {
+    printf "${red}No${clear_color}\n"
+}
+printf "Checking that user is root..."
 if [ $EUID -ne 0 ]; then
+    deny
     printf "${red}Run it as root${clear_color}\n"
     exit 1
+else
+    confirm
 fi
+printf "Checking that this is being run on aarch64..."
+if [ "$(uname -m)" == "aarch64" ]; then
+    confirm
+else
+    deny
+fi
+printf "Checking that this is being run from Nethunter..."
 if [ "$YOU_KNOW_WHAT" != "THIS_IS_KALI_LINUX_NETHUNTER_FROM_JAVA_BINKY" ]; then
+    deny
     printf "${red}This toolset has been designed around Kali Nethunter, which you do not appear to be using.\n"
     printf "You may continue, but we cannot guarantee everything functions as it should on another platform.${clear_color}\n"
     sleep 5
@@ -69,26 +87,25 @@ fi
 
 
 printf "Checking for aircrack-ng... "                                   
-command -v aircrack-ng > /dev/null
+command -v aircrack-ng > /dev/null 2>&1
 aircrack_result="$?"
 if [ "$aircrack_result" -eq 0 ]; then
-    printf "${green}Yes${clear_color}\n"
+    confirm
 else
-    printf "${red}No${clear_color}\n"
-    command -v apt > /dev/null
-    apt_is_pm="$?"
-    if [ "$apt_is_pm" -eq 0 ]; then
-        printf "${yellow} Installing aircrack-ng...${clear_color}\n"
-        apt-get update
-        apt-get install -y aircrack-ng
-    else
-        printf "${red}Automatic installation of aircrack-ng failed${clear_color}\n"
-        exit 1
-    fi
+    deny
+    read -p "Build it from source now? (Y/n)" build_ac
+    case $build_ac in
+        [Nn])
+            printf "${red}Quitting...\n${clear_color}"
+            exit 1
+            ;;
+          *)
+              curl -fsSL https://raw.githubusercontent.com/akabul0us/assorted_linux_scripts/refs/heads/main/aircrack_install.sh | bash
+              ;;
+    esac
 fi
 printf "${green}Setup complete!${clear_color}\n"
-echo 'Run init.sh to begin.'
-echo 'Options:'
+printf "Run init.sh to begin.\nOptions:"
 echo '-c [path to .cap file] -- Packet capture file containing 4-way handshake'
 echo '-b [target BSSID] -- MAC address of AP to deauthenticate/spoof'
 echo '-n [target SSID] -- Wifi network name'
