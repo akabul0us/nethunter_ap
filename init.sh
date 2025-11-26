@@ -54,8 +54,8 @@ if [ -z "$name" ]; then
     hc22000_file="$basename.hc22000"
     hcxpcapngtool -o $hc22000_file $capfile > /dev/null
     PWD="$(pwd)"
-    python3 $PWD/ssid.py "$(cat $hc22000_file)" > $basename.txt 
-    name="$(head -n 1 $basename.txt | cut -c 9-)"
+    python3 $PWD/ssid.py $hc22000_file > $basename.txt 
+    name="$(head -n 1 $basename.txt | cut -c 8-)"
     printf "${red}No Wifi name explicitly passed${clear_color}\n"
     printf "Detected Wifi name:${yellow} $name ${clear_color}from ${yellow}$capfile${clear_color}\n"
 fi
@@ -80,3 +80,5 @@ python3 passapi.py $bssid &
 printf "${yellow}Generating $conf_file...${clear_color}\n"
 printf "interface=$interface\ndriver=nl80211\nssid=$name\nhw_mode=g\nchannel=3\nmacaddr_acl=0\nignore_broadcast_ssid=0\n" > $conf_file
 cat $conf_file
+./$(pwd)/fakeap.sh
+
