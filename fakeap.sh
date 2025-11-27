@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+if [ "$EUID" -ne 0 ]; then
+	echo "Run it as root"
+	exit 1
+fi
 if [ -z "$1" ]; then
 	echo "No interface passed: using default wlan1"
 	wi_int="wlan1"
