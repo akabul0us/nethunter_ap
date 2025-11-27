@@ -17,9 +17,10 @@ Plug in your wireless adapter
 
 ### [Attack Demo](https://github.com/user-attachments/assets/629a6c2d-ac79-46f7-b233-6c9ad3d6f469)
 
+
 ### Credits
-· @yesimxev - Internet sharing rules
-· @ikteach - Script editing
-· @Justxd22 - Handshake verification methods and portals _check his [repo](https://github.com/Justxd22/Eviltwin-Huawei_XD)_
+- @yesimxev - Internet sharing rules
+- @ikteach - Script editing
+- @Justxd22 - Handshake verification methods and portals - _check his [repo](https://github.com/Justxd22/Eviltwin-Huawei_XD)_
 
 
