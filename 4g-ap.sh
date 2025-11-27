@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+if [ "$EUID" -ne 0 ]; then
+	echo "Run it as root"
+	exit 1
+fi
 if [ -z "$1" ]; then
 	echo "No interface passed: using default wlan1"
 	wi_int="wlan1"
@@ -10,31 +14,31 @@ if [ -z "$2" ]; then
 	echo "No AP interface passed: using default wlan0"
 	ap_int="wlan0"
 else
-        echo "$2" | grep -E "^wlan[0-9]{1,2}" > dev/null || echo "Unknown in>
+        echo "$2" | grep -E "^wlan[0-9]{1,2}" > dev/null || echo "Unknown interface: $2" && exit 1
         ap_int="$2"
 fi
 echo "Checking default rule number..."
-for table in $(ip rule list | awk -F"lookup" '{print $2}'); do
-DEF=`ip route show table $table | grep default | grep rmnet_data2`
-  if ! [ -z "$DEF" ]; then
-     break
-  fi
+for table in "$(ip rule list | awk -F"lookup" '{print $2}')"; do
+	DEF=`ip route show table $table | grep default | grep rmnet_data2`
+	if [ ! -z "$DEF" ]; then
+		break
+	fi
 done
 echo "Default rule number is $table"
 echo "Checking for existing $wi_int interface..."
 if ip link show $wi_int; then
-  echo "$wi_int exists, continuing.."
+	echo "$wi_int exists, continuing.."
 else
-  if [[ `iw list | grep '* AP'` == *"* AP"* ]]; then
-    echo "$ap_int supports AP mode, creating AP interface.."
-    iw dev $ap_int interface add $wi_int type __ap
-    ip addr flush $wi_int
-    ip addr flush $wi_int
-    ip link set up dev $wi_int
-  else
-    echo "$ap_int doesn't support AP mode, exiting.."
-    exit 0
-  fi
+	if [[ `iw list | grep '* AP'` == *"* AP"* ]]; then
+    		echo "$ap_int supports AP mode, creating AP interface.."
+		iw dev $ap_int interface add $wi_int type __ap
+		ip addr flush $wi_int
+		ip addr flush $wi_int
+		ip link set up dev $wi_int
+	else
+		echo "$ap_int doesn't support AP mode, exiting.."
+		exit 1
+	fi
 fi
 echo "Adding iptables for internet sharing..."
 iptables --flush
@@ -69,4 +73,5 @@ else
 	exit 1
 fi
 sleep 5
-dnsspoof -i $wi_int
+dnsmasq -C dnsmasq.conf &
+nohup dnsspoof -i $wi_int
